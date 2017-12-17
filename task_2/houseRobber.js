@@ -8,22 +8,42 @@
 Для nums = [1, 3, 1, 3, 100] результат должен быть равен 103
 */
 
-// разделяем массив на два(четные и нечетные элементы), сортируем, возвращаем сложение последних элементов массивов
+
 
 function houseRobber(nums) {
-    var evenItems=[];
-    var unevenItems=[];
     
-    for (var i=0;i<nums.length;i++){
-                if(i%2){
-                        evenItems.push(nums[i]);
-                } else{
-                        unevenItems.push(nums[i]);
-                }
+    //функция - максимум в массиве, возвращает значение и позицию
+    function findMax(arr){
+      var result={
+        maxValue:0
+      };
+    arr.forEach(function(item, i){
+      if(item>res.maxValue){
+        result.maxValue=item;
+        result.indexOfMax=i;
       }
+    });
+      return result;
+    };
+//ищем максимум в исходном массиве    
+var iter1= findMax(nums);
+//массив без максимума и соседних с ним эл-тов
+var subArr=nums.filter(function(item, i){
+    return !(i==(iter1.indexOfMax-1) | i==iter1.indexOfMax | i==(iter1.indexOfMax+1));
+        });
+    
+//ищем максимум в сформированном массиве  
+var iter2=findMax(subArr);  
+//результат - сумма максимумов
+var v1=iter1.maxValue+iter2.maxValue;
+//результат - сумма соседей максимума исходного массива
+var v2=nums[iter1.indexOfMax-1] + nums[iter1.indexOfMax+1];
+    
+var result= isNaN(v2)? v1: v1>v2? v1: v2>v1? v2: "Неожиданный результат";
+    return result; 
     
     
-    return evenItems.sort(function(a, b){return a-b}).pop() + unevenItems.sort(function(a, b){return a-b}).pop();
-    
-    
-    }
+  }
+
+nums = [5, 6, 7, 5, 7, 100];
+ houseRobber(nums);
