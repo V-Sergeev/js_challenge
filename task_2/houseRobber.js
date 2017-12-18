@@ -18,7 +18,7 @@ function houseRobber(nums) {
         maxValue:0
       };
     arr.forEach(function(item, i){
-      if(item>res.maxValue){
+      if(item>result.maxValue){
         result.maxValue=item;
         result.indexOfMax=i;
       }
